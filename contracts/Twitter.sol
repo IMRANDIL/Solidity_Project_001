@@ -7,15 +7,32 @@ pragma solidity ^0.8.0;
 //4. Create a function to get Tweet
  
 
+ // create the struct of tweet way now
+
 
 contract Twitter {
-    mapping(address => string) public twets;
 
-    function createTweet(string memory _tweet) public  {
-        twets[msg.sender] = _tweet;
-    }
 
-    function getTweet(address _owner) public view returns (string memory){
-        return twets[_owner];
+struct Tweet {
+    address author;
+    string content;
+    uint256 timestamp;
+    uint256 likes;
+}
+
+mapping(address => Tweet[]) public tweets;
+
+function createTweet(string memory _tweet) public {
+    Tweet memory newTweet = Tweet(
+        msg.sender,
+        _tweet,
+        block.timestamp,
+        0
+    );
+    tweets[msg.sender].push(newTweet);
+}
+
+    function getTweets() public view returns (Tweet[] memory){
+        return tweets[msg.sender];
     }
 }
