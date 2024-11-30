@@ -31,4 +31,8 @@ contract Twitter {
     function getTweets() public view returns (Tweet[] memory) {
         return tweets[msg.sender];
     }
+
+    function getSingleTweetByIdx(uint idx) public view returns(Tweet memory) {
+        return tweets[msg.sender][idx];
+    }
 }
